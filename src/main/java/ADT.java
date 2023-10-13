@@ -22,6 +22,8 @@ public class ADT {
     public static interface List<E>{
         void append(E item);
         E get(int index);
+
+        void set(int index, E item);
         E remove(int index);
         boolean contains(E item);
         boolean empty();

@@ -1,21 +1,22 @@
-import java.lang.reflect.Array;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayQueue<E> implements ADT.Queue<E>, Iterable<E>, IteratorFactory.InformalArrayIterable<E>{
+public class ArrayBag<E> implements ADT.Bag<E>, Iterable<E>, IteratorFactory.InformalArrayIterable<E>{
     static int default_size = 10;
     int size = 0, nOp = 0;
     E[] array;
-    public ArrayQueue(int size){
+
+    public ArrayBag(int size){
         this.array = (E[]) new Object[size];
     }
 
-    public ArrayQueue(){
-        this(ArrayQueue.default_size);
+    public ArrayBag(){
+        this(ArrayStack.default_size);
     }
 
     @Override
-    public void enqueue(E item) {
+    public void add(E item) {
         this.nOp++;
 
         if(this.size == this.array.length){
@@ -23,22 +24,6 @@ public class ArrayQueue<E> implements ADT.Queue<E>, Iterable<E>, IteratorFactory
         }
 
         this.array[this.size++] = item;
-    }
-
-    @Override
-    public E dequeue() {
-        this.nOp++;
-
-        if(this.empty()) throw new NoSuchElementException();
-
-        E oldItem = this.array[0];
-
-        for(int i = 1; i < this.size; i++){
-            this.array[i - 1] = this.array[i];
-        }
-
-        this.size--;
-        return oldItem;
     }
 
     @Override
