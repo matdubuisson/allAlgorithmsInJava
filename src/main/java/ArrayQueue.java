@@ -1,4 +1,5 @@
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -64,5 +65,9 @@ public class ArrayQueue<E> implements ADT.Queue<E>, Iterable<E>, IteratorFactory
     @Override
     public Iterator<E> iterator() {
         return new IteratorFactory.ArrayIterator<E>(this);
+    }
+
+    public static void main(String[] args) {
+        ArrayQueue<Integer> q = new ArrayQueue<Integer>();
     }
 }
