@@ -69,5 +69,7 @@ public class ArrayQueue<E> implements ADT.Queue<E>, Iterable<E>, IteratorFactory
 
     public static void main(String[] args) {
         ArrayQueue<Integer> q = new ArrayQueue<Integer>();
+
+        q.dequeue();
     }
 }

@@ -224,7 +224,7 @@ public class RecursiveBinarySearchTree<Key extends Comparable<Key>, Value> imple
 
     @Override
     public int size(Key lo, Key hi) {
-        return 0;
+        return this.size(this.root, lo, hi);
     }
 
     public int size(BinaryTreeNode<Key, Value> root, Key lo, Key hi){

@@ -19,22 +19,15 @@ public class ADT {
         int size();
     }
 
-    public static interface List<E extends Comparable<E>>{
+    public static interface List<E extends Comparable<? super E>>{
         void append(E item);
         E get(int index);
         void set(int index, E item);
         E remove(int index);
         boolean contains(E item);
+        void sort();
         boolean empty();
         int size();
-    }
-
-    public static interface SortableADT<E extends Comparable<E>>{
-        void sort();
-    }
-
-    public static interface SortedADT<E extends Comparable<E>>{
-        int rank(E key);
     }
 
     public static interface SymbolTable<Key extends Comparable<Key>, Value>{
