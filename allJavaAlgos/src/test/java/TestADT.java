@@ -191,4 +191,149 @@ public class TestADT {
             });
         }
     }
+
+    public static class TestSymbolStable{
+        private static void initDatas(ADT.SymbolTable<Integer, Integer> st, ArrayList<Integer> keys, ArrayList<Integer> values, int n){
+            Integer key, value;
+            Random random = new Random();
+            boolean found;
+
+            for(int i = 0, j; i < n; i++){
+                do {
+                    key = random.nextInt();
+                    found = false;
+
+                    for(j = 0; j < keys.size() && !found; j++){
+                        if(keys.get(j).compareTo(key) == 0) found = true;
+                    }
+                } while(found);
+
+                value = random.nextInt();
+                keys.add(key);
+                values.add(value);
+                st.put(key, value);
+                TestSymbolStable.testEmptyAndSize(st, keys);
+            }
+        }
+
+        public static void testEmptyAndSize(ADT.SymbolTable<Integer, Integer> st, ArrayList<Integer> array){
+            assertEquals(array.isEmpty(), st.empty());
+            assertEquals(array.size(), st.size());
+        }
+
+        public static void testPutAndGetAndContain(ADT.SymbolTable<Integer, Integer> st, int n){
+            int i;
+            Integer key, value;
+            Random random = new Random();
+            ArrayList<Integer> keys = new ArrayList<Integer>();
+            ArrayList<Integer> values = new ArrayList<Integer>();
+            TestSymbolStable.testEmptyAndSize(st, keys);
+            TestSymbolStable.initDatas(st, keys, values, n);
+
+            for(i = 0; i < n; i++){
+                key = keys.get(i);
+                value = values.get(i);
+                assertTrue(st.contains(key));
+                assertEquals(value, st.get(key));
+                key = random.nextInt();
+                assertEquals(keys.contains(key), st.contains(key));
+                TestSymbolStable.testEmptyAndSize(st, keys);
+            }
+        }
+
+        public static void testMin(ADT.SymbolTable<Integer, Integer> st, int n){
+            ArrayList<Integer> keys = new ArrayList<Integer>();
+            ArrayList<Integer> values = new ArrayList<Integer>();
+            TestSymbolStable.initDatas(st, keys, values, n);
+            Integer mi = null;
+
+            for(Integer k : keys){
+                if(mi == null || k.compareTo(mi) < 0) mi = k;
+            }
+
+            assertEquals(mi, st.min());
+        }
+
+        public static void testMax(ADT.SymbolTable<Integer, Integer> st, int n){
+            ArrayList<Integer> keys = new ArrayList<Integer>();
+            ArrayList<Integer> values = new ArrayList<Integer>();
+            TestSymbolStable.initDatas(st, keys, values, n);
+            Integer ma = null;
+
+            for(Integer k : keys){
+                if(ma == null || k.compareTo(ma) > 0) ma = k;
+            }
+
+            assertEquals(ma, st.max());
+        }
+
+        public static void testDeleteMin(ADT.SymbolTable<Integer, Integer> st, int n){
+            ArrayList<Integer> keys = new ArrayList<Integer>();
+            ArrayList<Integer> values = new ArrayList<Integer>();
+            TestSymbolStable.initDatas(st, keys, values, n);
+            Integer mi;
+
+            if(n > 0) {
+                for(int i = 0; i < n; i++) {
+                    mi = st.min();
+                    assertTrue(st.contains(mi));
+                    st.deleteMin();
+                    assertFalse(st.contains(mi));
+                }
+
+                assertTrue(st.empty());
+            } else {
+                assertThrows(NoSuchElementException.class, () -> {
+                    st.deleteMin();
+                });
+            }
+        }
+
+        public static void testDeleteMax(ADT.SymbolTable<Integer, Integer> st, int n){
+            ArrayList<Integer> keys = new ArrayList<Integer>();
+            ArrayList<Integer> values = new ArrayList<Integer>();
+            TestSymbolStable.initDatas(st, keys, values, n);
+            Integer ma;
+
+            if(n > 0) {
+                for(int i = 0; i < n; i++) {
+                    ma = st.max();
+                    assertTrue(st.contains(ma));
+                    st.deleteMax();
+                    assertFalse(st.contains(ma));
+                }
+
+                assertTrue(st.empty());
+            } else {
+                assertThrows(NoSuchElementException.class, () -> {
+                    st.deleteMax();
+                });
+            }
+        }
+
+        public static void testDelete(ADT.SymbolTable<Integer, Integer> st, int n){
+            if(n == 0){
+                assertThrows(NoSuchElementException.class, () -> {
+                    st.delete(0);
+                });
+            } else {
+                ArrayList<Integer> keys = new ArrayList<Integer>();
+                ArrayList<Integer> values = new ArrayList<Integer>();
+                TestSymbolStable.initDatas(st, keys, values, n);
+                int i;
+
+                assertFalse(st.empty());
+
+                for(i = 0; i < n; i++){
+                    assertFalse(st.empty());
+                    assertEquals(n - i, st.size());
+                    assertTrue(st.contains(keys.get(i)));
+                    st.delete(keys.get(i));
+                    assertFalse(st.contains(keys.get(i)));
+                }
+
+                assertTrue(st.empty());
+            }
+        }
+    }
 }
