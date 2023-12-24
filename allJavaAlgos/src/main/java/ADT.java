@@ -85,7 +85,25 @@ public class ADT {
         void flipColors(RedBlack23TreeNode<Key, Value> root);
         ADT.RedBlack23TreeNode<Key, Value> rotateLeft(RedBlack23TreeNode<Key, Value> root);
         ADT.RedBlack23TreeNode<Key, Value> rotateRight(RedBlack23TreeNode<Key, Value> root);
-
         boolean isRed(RedBlack23TreeNode<Key, Value> root);
+    }
+
+    public static interface Graph{
+        int V();
+        int E();
+        void addEdge(int v, int w);
+        boolean hasEdge(int v, int w);
+        Iterable<Integer> adj(int v);
+        boolean hasCycle();
+        Iterable<Integer> getCycle();
+        boolean isBiparti();
+        boolean isConnected(int v, int w);
+        boolean isConnected();
+        int nComponents();
+        Iterable<Integer> bfs(int v, int w);
+    }
+
+    public static interface DiGraph extends ADT.Graph{
+        DiGraph reverse();
     }
 }

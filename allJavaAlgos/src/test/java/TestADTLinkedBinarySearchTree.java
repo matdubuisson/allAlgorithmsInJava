@@ -49,4 +49,18 @@ public class TestADTLinkedBinarySearchTree {
         TestADT.TestSymbolStable.testDelete(new RecursiveLinkedBinarySearchTree<Integer, Integer>(), 50);
         TestADT.TestSymbolStable.testDelete(new RecursiveLinkedBinarySearchTree<Integer, Integer>(), 100);
     }
+
+    @Test
+    @Order(4)
+    public void testFloor(){
+        TestADT.TestSymbolStable.testFloor(new RecursiveLinkedBinarySearchTree<Integer, Integer>(), 0);
+        TestADT.TestSymbolStable.testFloor(new RecursiveLinkedBinarySearchTree<Integer, Integer>(), 50);
+    }
+
+    @Test
+    @Order(4)
+    public void testCeiling(){
+        TestADT.TestSymbolStable.testCeiling(new RecursiveLinkedBinarySearchTree<Integer, Integer>(), 0);
+        TestADT.TestSymbolStable.testCeiling(new RecursiveLinkedBinarySearchTree<Integer, Integer>(), 50);
+    }
 }

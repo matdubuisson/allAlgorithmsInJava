@@ -335,5 +335,67 @@ public class TestADT {
                 assertTrue(st.empty());
             }
         }
+
+        public static void testFloor(ADT.SymbolTable<Integer, Integer> st, int n){
+            Random random = new Random();
+            int real = random.nextInt(100), i, j;
+            Integer bestSimilar = null;
+
+            assertEquals(null, st.floor(real));
+
+            for(i = 0; i < n; i++){
+                st.put(real + i + 1, 0);
+                assertEquals(null, st.floor(real));
+            }
+
+            for(i = 0; i < n; i++){
+                do {
+                    j = random.nextInt(100);
+                } while (j == real);
+
+                if(j <= real && (bestSimilar == null || j > bestSimilar)) bestSimilar = j;
+
+                st.put(j, 0);
+                assertEquals(bestSimilar, st.floor(real));
+            }
+
+            st.put(real, 0);
+
+            for(i = 0; i < n; i++){
+                st.put(random.nextInt(100), 0);
+                assertEquals(real, st.floor(real));
+            }
+        }
+
+        public static void testCeiling(ADT.SymbolTable<Integer, Integer> st, int n){
+            Random random = new Random();
+            int real = random.nextInt(100), i, j;
+            Integer bestSimilar = null;
+
+            assertEquals(null, st.ceiling(real));
+
+            for(i = 0; i < n; i++){
+                st.put(real - i - 1, 0);
+                assertEquals(null, st.ceiling(real));
+            }
+
+            for(i = 0; i < n; i++){
+                do {
+                    j = random.nextInt(100);
+                } while (j == real);
+
+                if(j >= real && (bestSimilar == null || j < bestSimilar)) bestSimilar = j;
+
+                st.put(j, 0);
+                assertEquals(bestSimilar, st.ceiling(real));
+            }
+
+            st.put(real, 0);
+
+            for(i = 0; i < n; i++){
+                st.put(random.nextInt(100), 0);
+                assertEquals(real, st.ceiling(real));
+            }
+        }
     }
 }

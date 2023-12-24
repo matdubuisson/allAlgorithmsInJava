@@ -3,6 +3,7 @@ package main.java;
 import javax.swing.tree.TreeNode;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 public class RecursiveLinkedBinarySearchTree<Key extends Comparable<Key>, Value> implements ADT.SymbolTable<Key, Value>{
     // Size is calculated recursively
@@ -137,14 +138,11 @@ public class RecursiveLinkedBinarySearchTree<Key extends Comparable<Key>, Value>
     public Key floor(ADT.BinaryTreeNode<Key, Value> root, Key key, Key bestSimilarKey){
         if(root == null) return bestSimilarKey;
 
-        int cmp = key.compareTo(root.getKey());
+        int cmp = root.getKey().compareTo(key);
 
         if(cmp == 0) return key;
-        else if(cmp > 0){
-            if(bestSimilarKey == null || root.getKey().compareTo(bestSimilarKey) > 0) bestSimilarKey = root.getKey();
-
-            return this.floor(root.getRight(), key, bestSimilarKey);
-        } else return this.floor(root.getLeft(), key, bestSimilarKey);
+        else if(cmp > 0) return this.floor(root.getLeft(), key, bestSimilarKey);
+        else return this.floor(root.getRight(), key, root.getKey());
     }
 
     @Override
@@ -155,14 +153,11 @@ public class RecursiveLinkedBinarySearchTree<Key extends Comparable<Key>, Value>
     public Key ceiling(ADT.BinaryTreeNode<Key, Value> root, Key key, Key bestSimilarKey){
         if(root == null) return bestSimilarKey;
 
-        int cmp = key.compareTo(root.getKey());
+        int cmp = root.getKey().compareTo(key);
 
         if(cmp == 0) return key;
-        else if(cmp < 0){
-            if(bestSimilarKey == null || root.getKey().compareTo(bestSimilarKey) < 0) bestSimilarKey = root.getKey();
-
-            return this.ceiling(root.getLeft(), key, bestSimilarKey);
-        } else return this.ceiling(root.getRight(), key, bestSimilarKey);
+        else if(cmp < 0) return this.ceiling(root.getRight(), key, bestSimilarKey);
+        else return this.ceiling(root.getLeft(), key, root.getKey());
     }
 
     @Override

@@ -1,6 +1,16 @@
 package main.java;
 
 public class ArrayFactory {
+    public static int[] resize(int[] array, int newSize){
+        int[] newArray = new int[newSize];
+
+        for(int i = 0; i < (array.length <= newSize ? array.length : newSize); i++){
+            newArray[i] = array[i];
+        }
+
+        return newArray;
+    }
+
     public static <E> E[] resize(E[] array, int newSize){
         E[] newArray = (E[]) new Object[newSize];
 
@@ -37,6 +47,16 @@ public class ArrayFactory {
 
             for(int i = start; i < stop + scale; i++) array[i] = array[i - scale]; // scale < 0
         }
+    }
+
+    public static void print(int[] array){
+        System.out.print("{");
+
+        for(int i = 0; i < array.length; i++){
+            System.out.print("[" + array[i] + "]");
+        }
+
+        System.out.println("}");
     }
 
     public static <E> void print(E[] array){

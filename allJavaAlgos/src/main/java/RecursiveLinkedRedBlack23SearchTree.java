@@ -31,8 +31,6 @@ public class RecursiveLinkedRedBlack23SearchTree <Key extends Comparable<Key>, V
         return root;
     }
 
-    
-
     @Override
     public void flipColors(ADT.RedBlack23TreeNode<Key, Value> root) {
         root.setColor(RedBlack23TreeNode.RED);
